@@ -3,5 +3,7 @@
     <pages>
         <page name='Page 1'/>
         <page name='Page 2'/>
+        <page name='Page 3 (HELP)'/>
+        <page name='Quiz'/>
     </pages>
 </playground>

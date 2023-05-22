@@ -1,112 +1,22 @@
-//: [Previous](@previous)
+/*: ## Instructions
 
-//:## Instructions: Now change this page so that the suits do not win a tie. Players will set aside the top 3 cards then challange with the 4th card. The winner takes all the set aside cards plus both the winning hand and the tied hand (5 cards).
+In this exercise, you will modify your card game code to change how ties are resolved. Instead of letting the suits determine the winner, we will introduce a new rule:
 
-import Foundation
-import GameplayKit
-public var Suits = [1:"Spade",2:"Heart", 3:"Club",4:"Diamond"]
-public class Deck {
-    var Cards: Array<Card> = []
-    init() {
-        for i in 1...13{
-            for j in 1...4{
-                Cards.append(Card(val: i,suit: j))
-            }
-        }
-        shuffle()
-    }
-    func shuffle() {
-        Cards = GKRandomSource.sharedRandom().arrayByShufflingObjects(in:Cards) as! Array<Card>
-    }
-}
-public class Card{
-    var Value : Int = 0
-    var Suit: Int = 1
-    init(val: Int, suit: Int){
-        Value = val
-        Suit = suit
-    }
-    func Description ()->String{ return"a \(Value) of \(Suits[Suit]!)s"}
-}
+- When a tie occurs, both players will set aside their top 3 cards and then challenge each other with their 4th card.
+- The winner of this challenge takes all set-aside cards, plus both the winning hand and the tied hand (a total of 5 cards).
 
-public class Player{
-    public var hand : Array<Card> = []
-}
+### Steps to Follow
 
-public class Game{
-    var Players:Array<Player> = []
-    var deck = Deck()
-    init() {
-        for _ in 1...2{
-            let newPlayer = Player()
-            Players.append(newPlayer)
-        }
-    }
-    func StartGame(){
-        deck.shuffle()
-        for _ in 1...26 {
-            for player in Players{
-                player.hand.append(deck.Cards[0])
-                deck.Cards.remove(at: 0)
-            }
-        }
-    }
-    func comapare(){
-        print("\(Players[0].hand[0].Description()) vs \(Players[1].hand[0].Description())")
-        if (Players[0].hand[0].Value>Players[1].hand[0].Value){
-            
-            Players[0].hand.append(Players[1].hand[0])
-            Players[0].hand.append(Players[0].hand[0])
-            Players[0].hand.remove(at: 0)
-            Players[1].hand.remove(at: 0)
-            print("Player 1 takes the hand")
-            return
-        }
-        else if(Players[0].hand[0].Value == Players[1].hand[0].Value){
-            if (Players[0].hand[0].Suit > Players[1].hand[0].Suit){
-                
-                Players[0].hand.append(Players[1].hand[0])
-                Players[0].hand.append(Players[0].hand[0])
-                Players[0].hand.remove(at: 0)
-                Players[1].hand.remove(at: 0)
-                print("Player 1 takes the hand")
-                return
-            }
-            else{
-                Players[1].hand.append(Players[0].hand[0])
-                Players[1].hand.append(Players[1].hand[0])
-                Players[1].hand.remove(at: 0)
-                Players[0].hand.remove(at: 0)
-                print("Player 2 takes the hand")
-                return
-            }
-            
-        }
-        else {
-            Players[1].hand.append(Players[0].hand[0])
-            Players[1].hand.append(Players[1].hand[0])
-            Players[1].hand.remove(at: 0)
-            Players[0].hand.remove(at: 0)
-            print("Player 2 takes the hand")
-            return
-        }
-    }
-}
-var game = Game()
-game.StartGame()
-var i = 1
-var lowest = 26
-while lowest > 0 {
-    i += 1
-    for player in game.Players{
-        if (player.hand.count-1 < lowest){
-            lowest = player.hand.count-1
-        }
-    }
-    game.comapare()
-}
-if (game.Players[0].hand.count ==  52){
-    print("Player 1 Wins after \(i) hands!!!!")}
-else{print("Player 2 Wins after \(i) hands!!!!")}
+1. **Migrate your code:** Start by copying your code from the previous exercise. You will build on it to implement the required modifications.
+
+2. **Implement Optional Binding:** Modify the `Player` class to use optional binding in Swift. This will involve creating a struct for the player, which includes an optional property for the player's name. You will then use optional binding whenever you access this property.
+
+3. **Use Property Observers:** Add a property observer to the player's hand property. This observer should print a message whenever an Ace is added to a player's hand.
+
+4. **Use Enums:** Replace the current card representation with an enum. This enum should have cases for each card rank (Ace through King) and another enum for the suits (Spade, Heart, Club, Diamond). Update the rest of your code to work with this new card representation.
+
+The goal of this exercise is to deepen your understanding of Swift programming concepts such as optional binding, property observers, and enums. Make sure to comment your code thoroughly as you work through these changes, explaining what each new piece of code does and why it's there.
+*/
 
 
+//: [Next](@next)
